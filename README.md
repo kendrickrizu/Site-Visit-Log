@@ -57,12 +57,16 @@ Setup:
 
 Issues raised in code review, and how I fixed them:
 
-9. **Typo in a fieldname.** A field was named `pupose`, in both the fieldname and the label. I corrected both to `purpose` and checked the rest of the code for the old name. I also worked out what a fieldname change does to existing data (see above).
+9. **Typo in a fieldname.** A field was named `pupose`, in both the fieldname and the label. I corrected both to `purpose` and checked the rest of the code for the old name.
+   
 10. **README said Status was read-only, but the DocType did not set it.** I set Read Only on the field and checked the DocType JSON against what I had written. This time I confirmed it says `"read_only": 1` before saying so.
+    
 11. **The follow-up date was required only in the browser.** A record created through the API would skip the rule. I added `frappe.throw` checks in `validate` so the rule holds on the server, plus a rule that the follow-up date cannot be before the visit date, and tests that prove both.
-12. **Module named "My First App".** I gave it a meaningful name, "Site Visit". Doing this taught me that the module name has to match in three places (`modules.txt`, the module folder and the Module Def), and that the Module Def's App Name must be set, or Frappe writes the DocType files into its own core app. When that happened I moved the files into my app, fixed the nesting and restored Frappe's `modules.txt` with `git restore`.
+    
+12. **Module named "My First App".** I gave it a meaningful name, "Site Visit". Doing this taught me that the module name has to match in three places (`modules.txt`, the module folder and the Module Def), and that the Module Def's App Name must be set, or Frappe writes the DocType files into its own core app. When that happened I moved the files into my app, fixed the nesting and restored Frappe's `modules.txt` with `git restore`
+    
 13. **Hyphen in a fieldname.** I labelled a field "Follow-up Needed" and Frappe rejected `follow-up_needed` as a fieldname. Labels can have hyphens, fieldnames cannot.
-14. **A logic bug in my first version of `validate`.** An `else` was attached to the wrong `if`, so a valid follow-up date was still rejected, and the comparison used today's date instead of the visit date. Tracing each case by hand and running all the scenarios found it.
+17. **A logic bug in my first version of `validate`.** An `else` was attached to the wrong `if`, so a valid follow-up date was still rejected, and the comparison used today's date instead of the visit date. Tracing each case by hand and running all the scenarios found it.
 
 ## Running it
 
